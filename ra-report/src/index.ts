@@ -150,7 +150,7 @@ async function signWithDefaultValidator(report: IReport, config: {
         pair: config.pair,
         abi: DEFAULT_VALIDATOR_ABI,
     });
-    const output = await validatorContract.call('validate', report) as ILooseResult<Codec>;
+    const output = await validatorContract.call('sign', report) as ILooseResult<Codec>;
     if (output?.isOk) {
         return output.asOk.toHex();
     } else {

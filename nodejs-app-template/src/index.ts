@@ -6,12 +6,7 @@ import { mnemonicGenerate, cryptoWaitReady, signatureVerify } from '@polkadot/ut
 
 import * as ra from "@phala/ra-report"
 
-const VALIDATOR_CONTRACT_ADDRESS = "0xc5985b7b4ca226195032082eefe741dd746e469ed594c30a662450fbe8aebbdd";
-
-function generateKeyPair(): KeyringPair {
-    const keyring = new Keyring({ type: 'sr25519' })
-    return keyring.addFromUri(mnemonicGenerate());
-}
+const VALIDATOR_CONTRACT_ADDRESS = "0xac1296d1bce0a277066cc2472d383d26511290eeaf6170d29dca18c5d1ce2889";
 
 async function main() {
     console.log("Waiting for crypto...");
@@ -32,18 +27,33 @@ async function main() {
         pair,
         abi: ra.DEFAULT_VALIDATOR_ABI,
     });
-    const validateResult = await validatorContract.call('validate', report) as any;
+    const validateResult = await validatorContract.call('sign', report) as any;
     if (validateResult?.isErr) {
         throw new Error(`Failed to sign the report: ${validateResult.asErr}`);
     }
     const sigOfPubkey = validateResult.asOk.toHex();
     console.log("Signature of public key: ", sigOfPubkey);
 
-    const computedResult = "foo";
-    const sigOfComputedResult = pair.sign(computedResult);
+    const computedOutput = "foo";
+    const sigOfComputedResult = pair.sign(computedOutput);
 
     // User verifies the result
-    const verifyResult = signatureVerify(computedResult, sigOfComputedResult, publicKey);
+    const validatorPubkey = await validatorContract.call('publicKey') as any;
+    const publicKeyValid = signatureVerify(pad64(publicKey), sigOfPubkey, validatorPubkey).isValid;
+    console.log("Public key valid: ", publicKeyValid);
+    const computedResultValid = signatureVerify(computedOutput, sigOfComputedResult, publicKey).isValid;
+    console.log("Computed result valid: ", computedResultValid);
+}
+
+function generateKeyPair(): KeyringPair {
+    const keyring = new Keyring({ type: 'sr25519' })
+    return keyring.addFromUri(mnemonicGenerate());
+}
+
+function pad64(data: Uint8Array): Uint8Array {
+    const result = new Uint8Array(64);
+    result.set(data);
+    return result;
 }
 
 main().catch(console.error);

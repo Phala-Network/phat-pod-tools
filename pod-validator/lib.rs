@@ -69,7 +69,7 @@ mod pod_validator {
 
         #[ink(message)]
         /// Validates the given RA report and signs the inner user_report_data.
-        pub fn validate(&self, report: SignedReport) -> Result<Vec<u8>> {
+        pub fn sign(&self, report: SignedReport) -> Result<Vec<u8>> {
             let key = self.key();
             let report = ias::SignedIasReport {
                 ra_report: report.report,
