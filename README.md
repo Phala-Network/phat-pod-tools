@@ -47,15 +47,15 @@ cd pod-validator/
 patron build
 
 # When build successfully, you would get an HTTP URL like this:
-# https://patron.works/codeHash/74ece776cffff9242c091eb4be06f4b62454179fb7bec4ae0d293f8c626abe93
+# https://patron.works/codeHash/7298c937d5a638271892eaa35fda08ee931bcf5b197ff3a8a602e978243443f4
 ```
 
-That requires you to have [patron](https://patron.works/getting-started) installed. If you don't want to install it and the Rust toolchain, you can use the compiled contract from [here](https://patron.works/codeHash/74ece776cffff9242c091eb4be06f4b62454179fb7bec4ae0d293f8c626abe93).
+That requires you to have [patron](https://patron.works/getting-started) installed. If you don't want to install it and the Rust toolchain, you can use the compiled contract from [here](https://patron.works/codeHash/7298c937d5a638271892eaa35fda08ee931bcf5b197ff3a8a602e978243443f4).
 
 Goto the contract link on patron, click the `Deploy with Phala` button and follow the instructions to deploy the contract.
 If everything goes well, you would get a contract address, that would be used in the next step, and a web page to operation with the contract.
 
-### Build the your pod app
+### Build the pod app
 
 You can clone this repo and develop your pod app based on the template in `nodejs-app-template/` directory.
 

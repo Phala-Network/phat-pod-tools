@@ -6,7 +6,7 @@ import { mnemonicGenerate, cryptoWaitReady, signatureVerify } from '@polkadot/ut
 
 import * as ra from "@phala/ra-report"
 
-const VALIDATOR_CONTRACT_ADDRESS = "0xac1296d1bce0a277066cc2472d383d26511290eeaf6170d29dca18c5d1ce2889";
+const VALIDATOR_CONTRACT_ADDRESS = "0x96027fde30aedae35b8b377dbeb6b3e4a7e38bbe2a38c372382d76fd612547d1";
 
 async function main() {
     console.log("Waiting for crypto...");
