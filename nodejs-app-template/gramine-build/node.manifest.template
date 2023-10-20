@@ -1,0 +1,65 @@
+[libos]
+entrypoint = "{{ appname }}"
+
+[loader]
+entrypoint = "file:{{ libos }}"
+argv0_override = "{{ appname }}"
+argv = ["node", "app/index.js"]
+log_level = "error"
+
+[sys]
+insecure__allow_eventfd = true
+stack.size = "2M"
+brk.max_size = "256M"
+
+[loader.env]
+LD_LIBRARY_PATH = "/lib:/lib/x86_64-linux-gnu"
+MALLOC_ARENA_MAX = "1"
+IAS_API_KEY = { passthrough = true }
+
+[[fs.mounts]]
+type = "chroot"
+path = "/lib"
+uri = "file:{{ libdir }}"
+
+[[fs.mounts]]
+type = "chroot"
+path = "/etc"
+uri = "file:/etc"
+
+[[fs.mounts]]
+type = "chroot"
+path = "/data"
+uri = "file:data"
+
+[[fs.mounts]]
+type = "chroot"
+path = "/app"
+uri = "file:app"
+
+[sgx]
+debug = false
+nonpie_binary = true
+enclave_size = "8G"
+max_threads = 32
+remote_attestation = "{{ ra_method }}"
+
+{% if ra_method == "epid" %}
+ra_client_linkable = true
+ra_client_spid = "{{ ra_client_spid }}"
+{% endif %}
+
+trusted_files = [
+  "file:{{ appname }}",
+  "file:{{ libos }}",
+  "file:{{ libdir }}",
+  "file:app/",
+]
+
+allowed_files = [
+  "file:/etc/hosts",
+  "file:/etc/resolv.conf",
+  "file:/etc/ssl/openssl.cnf",
+  "file:index.js",
+  "file:data/",
+]
