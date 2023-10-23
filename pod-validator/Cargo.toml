@@ -30,7 +30,6 @@ optional = true
 [dependencies.sgx-attestation]
 # TODO.kevin, use crates.io once it's published
 git = "https://github.com/Phala-Network/phala-blockchain"
-branch = "rm-unwrap"
 default-features = false
 
 [dev-dependencies]
