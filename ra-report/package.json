@@ -13,7 +13,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@phala/sdk": "0.5.4-nightly-20231020",
+    "@phala/sdk": "^0.5.5-nightly-20231111",
     "@polkadot/keyring": "^12.5.1",
     "axios": "^1.5.1",
     "base64-js": "^1.5.1"
