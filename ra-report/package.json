@@ -1,6 +1,6 @@
 {
   "name": "@phala/ra-report",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tools for generating report for nodejs app running in Gramine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
